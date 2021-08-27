@@ -6,7 +6,7 @@ class MyDocument extends Document {
             <Html lang='en'>
                 <Head>
                     <meta charSet='UTF-8' />
-                    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js' />
+                    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css' />
                 </Head>
                 <body>
                     <Main />
