@@ -1,17 +1,53 @@
+import { useState } from 'react';
+
 import useForm from '../../lib/useForm';
+import { registerUser } from '../../actions/auth';
 
 const Register = () => {
     
-    const { inputs, handleChange } = useForm({
+    const { inputs, handleChange, clearForm } = useForm({
         email: '',
         name: '',
         password: ''
     });
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        console.table(inputs);
-    }
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [message, setMessage] = useState(null);
+
+    const handleSubmit = async e => {
+        try {
+            e.preventDefault();
+            
+            setLoading(true);
+            setError(null);
+    
+            const user = {
+                email: inputs.email,
+                name: inputs.name,
+                password: inputs.password
+            };
+
+            const res = await registerUser(user);
+            
+            if (res.status) {
+                setMessage(res.data.message);
+            } else {
+                setError(res.data.message);
+            }
+
+            setLoading(false);
+            clearForm();
+
+        } catch (err) {
+            console.log(err);
+            setLoading(false);
+        }
+    };
+
+    const showLoading = () => loading ? <div className='alert alert-info'>Loading...</div> : '';
+    const showError = () => error ? <div className='alert alert-danger'>{error}</div> : '';
+    const showMessage = () => message ? <div className='alert alert-info'>{message}</div> : '';
 
     return (
         <form onSubmit={handleSubmit}>
@@ -46,8 +82,11 @@ const Register = () => {
                 />
             </div>
             <div>
-                <button className='btn btn-primary'>Login</button>
+                <button disabled={loading} className='btn btn-primary'>Login</button>
             </div>
+            {showLoading()}
+            {showError()}
+            {showMessage()}
         </form>
     );
 }
