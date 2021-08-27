@@ -1,9 +1,11 @@
 import Layout from '../components/Layout';
 
+import Register from '../components/auth/Register';
+
 const RegisterPage = () => {
     return (
         <Layout>
-            <p>Hello</p>
+            <Register />
         </Layout>
     );
 }

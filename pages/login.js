@@ -1,9 +1,11 @@
 import Layout from '../components/Layout';
 
+import Login from '../components/auth/Login';
+
 const LoginPage = () => {
     return (
         <Layout>
-            <p>Hello</p>
+            <Login />
         </Layout>
     );
 }
