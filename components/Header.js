@@ -42,7 +42,6 @@ const Header = (props) => {
                             </Link>
                         </NavItem>
                     </Nav>
-                    <NavbarText>Simple Text</NavbarText>
                 </Collapse>
             </Navbar>
         </div>

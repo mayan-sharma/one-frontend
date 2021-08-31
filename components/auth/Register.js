@@ -81,8 +81,8 @@ const Register = () => {
                     value={inputs.password}
                 />
             </div>
-            <div>
-                <button disabled={loading} className='btn btn-primary'>Login</button>
+            <div className='mt-3 mb-3'>
+                <button disabled={loading} className='btn btn-primary'>Register</button>
             </div>
             {showLoading()}
             {showError()}
