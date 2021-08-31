@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Router from 'next/router';
 
 import useForm from '../../lib/useForm';
-import { registerUser } from '../../actions/auth';
+import { isAuth, registerUser } from '../../actions/auth';
 
 const Register = () => {
     
@@ -14,6 +15,10 @@ const Register = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [message, setMessage] = useState(null);
+
+    useEffect(() => {
+        isAuth() && Router.push('/');
+    }, []);
 
     const handleSubmit = async e => {
         try {

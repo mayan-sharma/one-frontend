@@ -21,6 +21,15 @@ const axiosLoginUser = axios.create({
     }
 });
 
+const axiosLogoutUser = axios.create({
+    baseURL: `${API}/auth/logout`,
+    method: 'GET',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+});
+
 export const registerUser = async user => {
     try {
         const res = await axiosRegisterUser({
@@ -47,6 +56,20 @@ export const loginUser = async user => {
     }
 }
 
+export const logoutUser = async (callback) => {
+    try {
+        removeCookie('token');
+        removeLocalStorage('user');
+        callback();
+
+        const res = await axiosLogoutUser();
+        return res.data;
+
+    } catch (err) {
+        return err.response;
+    }
+}
+
 export const setCookie = (key, value) => {
     // check if this function is running on the client side
     if (process.browser) {
@@ -62,7 +85,7 @@ export const removeCookie = key => {
 
 export const getCookie = key => {
     if (process.browser) {
-        cookie.get(key);
+        return cookie.get(key);
     }
 }
 
@@ -90,7 +113,7 @@ export const isAuth = () => {
         const cookie = getCookie('token');
         if (cookie) {
             const user = localStorage.getItem('user');
-            if (user) return JSON.parse(user);
+            if (user !== undefined) return JSON.parse(user);
         }
     }
     return false;

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import Router from 'next/router';
 import {
     Collapse,
     Navbar,
@@ -11,6 +12,7 @@ import {
     NavbarText
 } from 'reactstrap';
 
+import { isAuth, logoutUser } from '../actions/auth';
 import { APP_NAME } from '../config';
 
 const Header = (props) => {
@@ -27,20 +29,31 @@ const Header = (props) => {
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            <Link href='/login'>
-                                <NavLink>
-                                    Login
+                        {!isAuth() && (
+                            <>
+                                <NavItem>
+                                    <Link href='/login'>
+                                        <NavLink>
+                                            Login
+                                        </NavLink>
+                                    </Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link href='/register'>
+                                        <NavLink>
+                                            Register
+                                        </NavLink>
+                                    </Link>
+                                </NavItem>
+                            </>
+                        )}
+                        {isAuth() && (
+                            <NavItem>
+                                <NavLink onClick={() => logoutUser(() => Router.replace('/login'))}>
+                                    Logout
                                 </NavLink>
-                            </Link>
-                        </NavItem>
-                        <NavItem>
-                            <Link href='/register'>
-                                <NavLink>
-                                    Register
-                                </NavLink>
-                            </Link>
-                        </NavItem>
+                            </NavItem>
+                        )}
                     </Nav>
                 </Collapse>
             </Navbar>

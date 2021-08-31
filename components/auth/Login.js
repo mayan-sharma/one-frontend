@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Router from 'next/router';
 
 import useForm from '../../lib/useForm';
-import { loginUser, storeAuthInfo } from '../../actions/auth';
+import { loginUser, storeAuthInfo, isAuth } from '../../actions/auth';
 
 const Login = () => {
     
@@ -14,6 +14,10 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [message, setMessage] = useState(null);
+
+    useEffect(() => {
+        isAuth() && Router.push('/');
+    }, []);
 
     const handleSubmit = async e => {
         try {
@@ -29,7 +33,7 @@ const Login = () => {
 
             const res = await loginUser(user);
         
-            if (res.status) {
+            if (res.status === 200) {
                 setMessage(res.data.message);
                 storeAuthInfo(res.data, () => Router.push('/'));
 
