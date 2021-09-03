@@ -35,7 +35,14 @@ const Login = () => {
         
             if (res.status === 200) {
                 setMessage(res.data.message);
-                storeAuthInfo(res.data, () => Router.push('/'));
+                console.log(isAuth());
+                storeAuthInfo(res.data, () => {
+                    if (isAuth() && isAuth().role === 1) {
+                        Router.push('/admin');
+                    } else {
+                        Router.push('/user');
+                    }
+                });
 
             } else {
                 setError(res.data.message);
