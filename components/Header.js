@@ -48,11 +48,20 @@ const Header = (props) => {
                             </>
                         )}
                         {isAuth() && (
-                            <NavItem>
-                                <NavLink onClick={() => logoutUser(() => Router.replace('/login'))}>
-                                    Logout
-                                </NavLink>
-                            </NavItem>
+                            <>
+                                <NavItem>
+                                    <Link href={isAuth().role === 1 ? '/admin' : '/user'}>
+                                        <NavLink>
+                                            Dashboard 
+                                        </NavLink>
+                                    </Link>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink onClick={() => logoutUser(() => Router.replace('/login'))}>
+                                        Logout
+                                    </NavLink>
+                                </NavItem>
+                            </>
                         )}
                     </Nav>
                 </Collapse>
