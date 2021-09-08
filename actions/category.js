@@ -20,6 +20,15 @@ const axiosGetCategories = axios.create({
     }
 });
 
+// const axiosRemoveCategory = axios.create({
+//     baseURL: `${API}/category`,
+//     method: 'DELETE',
+//     headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json'
+//     }
+// });
+
 export const createCategory = async (name, token) => {
     try {
         const res = await axiosCreateCategory({
@@ -38,6 +47,32 @@ export const createCategory = async (name, token) => {
 export const getCategories = async () => {
     try {
         const res = await axiosGetCategories();
+        return res;
+
+    } catch (err) {
+        return err.response;
+    }
+}
+
+export const getCategory = async slug => {
+    try {
+        const res = await axiosGetCategories({
+            data: JSON.stringify({ slug })
+        });
+        return res;
+
+    } catch (err) {
+        return err.response;
+    }
+}
+
+export const removeCategory = async (slug, token) => {
+    try {
+        const res = await axios.delete(`${API}/category/${slug}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         return res;
 
     } catch (err) {
