@@ -78,12 +78,19 @@ const Category = () => {
         e.preventDefault();
         try {
             const res = await createCategory(name, token);
-            setValues({
-                ...values,
-                reload: !reload,
-                success: true,
-                isDeleted: false
-            })
+            if (res.status === 200) {
+                setValues({
+                    ...values,
+                    reload: !reload,
+                    success: true,
+                    isDeleted: false
+                })
+            } else {
+                setValues({
+                    ...values,
+                    error: res.data.message
+                })
+            }
 
         } catch (err) {
             setValues({
