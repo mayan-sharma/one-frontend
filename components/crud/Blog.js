@@ -81,9 +81,17 @@ const Blog = ({ router }) => {
         try {
             const res = await createBlog(formData, token);
             if (res.status === 200) {
-                console.log('created');
+                setValues({
+                    ...values,
+                    error: '',
+                    success: res.data.message
+                })
             } else {
-                console.log(res.data.message)
+                setValues({
+                    ...values,
+                    success: '',
+                    error: res.data.message
+                });
             }
 
         } catch (err) {
@@ -170,6 +178,22 @@ const Blog = ({ router }) => {
         )
     )
 
+    const showError = () => (
+        error && (
+            <div className='alert alert-danger'>
+                {error}
+            </div>
+        )
+    )
+
+    const showSuccess = () => (
+        success && (
+            <div className='alert alert-success'>
+                {success}
+            </div>
+        )
+    )
+
     return (
         <div className='container-fluid'>
             <div className='row'>
@@ -199,6 +223,10 @@ const Blog = ({ router }) => {
                             >
                                 Publish
                             </button>
+                            <div className='mt-2'>
+                                {showError()}
+                                {showSuccess()}
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -206,7 +234,7 @@ const Blog = ({ router }) => {
                     <div>
                         <div className='form-group pb-2'>
                             <h5>Feature Image</h5>
-                            <hr/>
+                            <hr />
                             <small className='text-muted mr-2'>Max size: 1mb</small>
                             <label className='btn btn-outline-info'>
                                 Upload image
