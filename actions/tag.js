@@ -3,7 +3,7 @@ import axios from 'axios';
 import { API } from '../config';
 
 const axiosCreateTag = axios.create({
-    baseURL: `${API}/tag`,
+    baseURL: `${API}/tags`,
     method: 'POST',
     headers: {
         'Accept': 'application/json',
@@ -12,7 +12,7 @@ const axiosCreateTag = axios.create({
 });
 
 const axiosGetTags = axios.create({
-    baseURL: `${API}/tag`,
+    baseURL: `${API}/tags`,
     method: 'GET',
     headers: {
         'Accept': 'application/json',
@@ -68,7 +68,7 @@ export const getTag = async slug => {
 
 export const removeTag = async (slug, token) => {
     try {
-        const res = await axios.delete(`${API}/tag/${slug}`, {
+        const res = await axios.delete(`${API}/tags/${slug}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

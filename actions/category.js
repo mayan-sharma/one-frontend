@@ -3,7 +3,7 @@ import axios from 'axios';
 import { API } from '../config';
 
 const axiosCreateCategory = axios.create({
-    baseURL: `${API}/category`,
+    baseURL: `${API}/categories`,
     method: 'POST',
     headers: {
         'Accept': 'application/json',
@@ -12,7 +12,7 @@ const axiosCreateCategory = axios.create({
 });
 
 const axiosGetCategories = axios.create({
-    baseURL: `${API}/category`,
+    baseURL: `${API}/categories`,
     method: 'GET',
     headers: {
         'Accept': 'application/json',
@@ -68,7 +68,7 @@ export const getCategory = async slug => {
 
 export const removeCategory = async (slug, token) => {
     try {
-        const res = await axios.delete(`${API}/category/${slug}`, {
+        const res = await axios.delete(`${API}/categories/${slug}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

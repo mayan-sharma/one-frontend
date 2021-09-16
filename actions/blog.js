@@ -3,7 +3,7 @@ import axios from 'axios';
 import { API } from '../config';
 
 const axiosCreateBlog = axios.create({
-    baseURL: `${API}/blog`,
+    baseURL: `${API}/blogs`,
     method: 'POST',
     headers: {
         'Accept': 'application/json',
