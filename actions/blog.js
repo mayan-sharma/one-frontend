@@ -4,8 +4,11 @@ import { API } from '../config';
 
 export const createBlog = async (blog, token) => {
     try {
-        const res = await axios.post(`${API}/blogs`,{
+        const res = await axios({
+            url: `${API}/blogs`,
+            method: 'POST',
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `Bearer ${token}`
             },

@@ -34,7 +34,7 @@ const Blog = ({ router }) => {
         error: '',
         success: false,
         title: '',
-        formData: '',
+        formData: '', // ssr
         loading: false
     });
 
@@ -109,11 +109,11 @@ const Blog = ({ router }) => {
             error: ''
         });
     }
-
+    
     const handleEditorChange = e => {
-        setBody(e);
-        formData.set('body', e);
         if (window) {
+            formData.set('body', e); // ssr
+            setBody(e);
             localStorage.setItem('blog', JSON.stringify(e));
         }
     }
