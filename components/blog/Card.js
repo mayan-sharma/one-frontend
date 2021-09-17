@@ -31,7 +31,7 @@ const Card = ({ blog }) => {
                 </Link>
             </header>
             <section>
-                <p className='mark ml-1 pt-2 pb-2'>
+                <p className='blockquote-footer ml-1'>
                     Written By {blog.User.name} | Published
                 </p>
             </section>
