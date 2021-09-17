@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { useState } from 'react';
 
 import Layout from '../../components/Layout';
@@ -16,6 +17,26 @@ const BlogPage = ({ blogs, categories, tags, size }) => {
         ))
     );
 
+    const showAllCategories = () => (
+        categories.map(category => (
+            <Link key={category.id} href={`/categories/${category.slug}`}>
+                <a className='btn btn-primary mr-1 ml-1 mt-3'>
+                    {category.name}
+                </a>
+            </Link>
+        ))
+    );
+
+    const showAllTags = () => (
+        tags.map(tag => (
+            <Link key={tag.id} href={`/tags/${tag.slug}`}>
+                <a className='btn btn-outline-primary mr-1 ml-1 mt-3'>
+                    {tag.name}
+                </a>
+            </Link>
+        ))
+    )
+
     return (
         <Layout>
             <main>
@@ -24,8 +45,9 @@ const BlogPage = ({ blogs, categories, tags, size }) => {
                         <div className='col-md-12 pt-3'>
                             <h1 className='display-4 font-weight-bold text-center'>Tech Blogs</h1>
                         </div>
-                        <section>
-                            <p>...</p>
+                        <section className='text-center'>
+                            {showAllCategories()}
+                            {showAllTags()}
                         </section>
                     </header>
                 </div>
