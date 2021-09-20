@@ -21,7 +21,7 @@ export const createBlog = async (blog, token) => {
     }
 }
 
-export const getAllBlogsWithCategoriesAndTags = async (limit = 10, skip = 0) => {
+export const getAllBlogsWithCategoriesAndTags = async (limit, skip) => {
     try {
         // next requires hard coded address for SSR 
         const res = await axios.get('http://localhost:8000/api/blogs/blogs-categories-tags', {
@@ -29,6 +29,8 @@ export const getAllBlogsWithCategoriesAndTags = async (limit = 10, skip = 0) => 
                 limit, skip
             }
         });
+
+        console.log(res.data.blogs);
         
         return res;
 

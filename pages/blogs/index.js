@@ -1,40 +1,81 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { withRouter } from 'next/router';
+import { useState } from 'react';
 
 import Layout from '../../components/Layout';
 import { getAllBlogsWithCategoriesAndTags } from '../../actions/blog';
 import Card from '../../components/blog/Card';
 import { DOMAIN } from '../../config';
 
-const BlogPage = ({ blogs, categories, tags, size, router }) => {
+const BlogPage = ({ blogs, categories, tags, limit, blogsSkip, blogsSize, router }) => {
+
+    const [skip, setSkip] = useState(blogsSkip);
+    const [size, setSize] = useState(blogsSize);
+    const [loading, setLoading] = useState(false);
+    const [loadedBlogs, setLoadedBlogs] = useState([]);
 
     const head = () => (
         <Head>
             <title>Tech Blogs | one</title>
             <meta name='description' content='Tech Blogs' />
-            
+
             <link rel='canonical' href={`${DOMAIN}${router.pathname}`} />
             <meta propery='og:title' content={'Latest web development tutorials | one'} />
-            <meta property='og:description' content='Tech blogs'/>
-            
+            <meta property='og:description' content='Tech blogs' />
+
             <meta property='og:type' content='website' />
             <meta property='og:url' content={`${DOMAIN}${router.pathname}`} />
             <meta property='og:site_name' content='one' />
-            
+
             <meta property='og:image' content={`${DOMAIN}/public/static/images/blog-image.png`} />
             <meta property='og:image:secure_url' content={`${DOMAIN}/public/static/images/blog-image.png`} />
             <meta property='og:image:type' content='image/png' />
-        </Head> 
+        </Head>
     )
 
-    console.log(router);
+    const loadMore = async () => {
+        let toSkip = skip + limit;
+        setLoading(true);
+        try {
+            const res = await getAllBlogsWithCategoriesAndTags(limit, toSkip);
+            if (res.status === 200) {
+                setLoadedBlogs([...loadedBlogs, ...res.data.blogs]);
+                setSkip(toSkip);
+                setSize(res.data.blogs.length);
+                
+            } else {
+                console.log(res);
+            }
+            
+        } catch (err) {
+            console.log(err);
+        }
+        setLoading(false);
+    }
+
+    const showLoadMoreButton = () => (
+        size && size >= limit && (
+            <button disabled={loading} onClick={loadMore} className='btn btn-outline-primary btn-lg'>
+                Load More
+            </button>
+        )
+    );
 
     const showAllBlogs = () => (
         blogs.map(blog => (
             <article key={blog.id}>
                 <Card blog={blog} />
-                <hr/>
+                <hr />
+            </article>
+        ))
+    );
+
+    const showLoadedBlogs = () => (
+        loadedBlogs.map(blog => (
+            <article key={blog.id}>
+                <Card blog={blog} />
+                <hr />
             </article>
         ))
     );
@@ -57,7 +98,7 @@ const BlogPage = ({ blogs, categories, tags, size, router }) => {
                 </a>
             </Link>
         ))
-    )
+    );
 
     return (
         <>
@@ -75,11 +116,9 @@ const BlogPage = ({ blogs, categories, tags, size, router }) => {
                             </section>
                         </header>
                     </div>
-                    <div className='container-fluid'>
-                        <div className='row'>
-                            <div className='col-md-12'>{showAllBlogs()}</div>
-                        </div>
-                    </div>
+                    <div className='container-fluid'>{showAllBlogs()}</div>
+                    <div className='container-fluid'>{showLoadedBlogs()}</div>
+                    <div className='text-center pt-5 pb-5'>{showLoadMoreButton()}</div>
                 </main>
             </Layout>
         </>
@@ -89,12 +128,21 @@ const BlogPage = ({ blogs, categories, tags, size, router }) => {
 // for server side rendering
 BlogPage.getInitialProps = async () => {
     try {
-        const res = await getAllBlogsWithCategoriesAndTags();
+        let limit = 2;
+        let skip = 0;
+        const res = await getAllBlogsWithCategoriesAndTags(limit, skip);
         if (res.status === 200) {
-            return res.data;
+            return {
+                blogs: res.data.blogs,
+                categories: res.data.categories,
+                tags: res.data.tags,
+                blogsSkip: skip,
+                size: res.data.size,
+                limit,
+            }
 
         } else return {};
-    
+
     } catch (err) {
         console.log(err);
         return {};
