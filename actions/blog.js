@@ -38,3 +38,16 @@ export const getAllBlogsWithCategoriesAndTags = async (limit, skip) => {
         return err.response;
     }
 }
+
+export const getBlog = async slug => {
+    try {
+        const res = await axios({
+            url: `${API}/blogs/${slug}`,
+            method: 'GET'
+        });
+        return res;
+
+    } catch (err) {
+        return err.response;
+    }
+}
