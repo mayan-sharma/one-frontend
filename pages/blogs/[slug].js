@@ -1,12 +1,32 @@
 import renderHTML from 'react-render-html'
 import Link from 'next/link';
 import Head from 'next/head';
+import { useState, useEffect } from 'react';
 
 import Layout from '../../components/Layout';
-import { getBlog } from '../../actions/blog';
+import MiniCard from '../../components/blog/MiniCard';
+import { getBlog, getRelatedBlog } from '../../actions/blog';
 import { API, DOMAIN } from '../../config';
 
 const SingleBlogPage = ({ blog, query }) => {
+
+    const [relatedBlogs, setRelatedBlogs] = useState([]);
+
+    useEffect(() => {
+        loadRelatedBlogs();
+    }, []);
+
+    const loadRelatedBlogs = async () => {
+        try {
+            const res = await getRelatedBlog(blog.slug, 3);
+            if (res.status === 200) {
+                setRelatedBlogs(res.data.blogs);
+            } else console.log(res);
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     const head = () => (
         <Head>
@@ -27,7 +47,7 @@ const SingleBlogPage = ({ blog, query }) => {
         </Head>
     )
 
-    const showCategories = (blog) => (
+    const showCategories = () => (
         blog.Categories.map(category => (
             <Link key={category.id} href={`/categories/${category.slug}`}>
                 <a className='btn btn-primary mr-2 ml-1'>{category.name}</a>
@@ -35,11 +55,21 @@ const SingleBlogPage = ({ blog, query }) => {
         ))
     )
 
-    const showTags = (blog) => (
+    const showTags = () => (
         blog.Tags.map(tag => (
             <Link key={tag.id} href={`/tags/${tag.slug}`}>
                 <a className='btn btn-outline-primary mr-2 ml-1'>{tag.name}</a>
             </Link>
+        ))
+    )
+
+    const showRelatedBlogs = () => (
+        relatedBlogs.map(blog => (
+            <div key={blog.id} className='col-md-4'>
+                <article>
+                    <MiniCard blog={blog} />
+                </article>
+            </div>
         ))
     )
 
@@ -67,8 +97,8 @@ const SingleBlogPage = ({ blog, query }) => {
                                         Written By {blog.User.name}
                                     </p>
                                     <div className='pb-3'>
-                                        {showCategories(blog)}
-                                        {showTags(blog)}
+                                        {showCategories()}
+                                        {showTags()}
                                     </div>
                                 </div>
                             </section>
@@ -80,11 +110,13 @@ const SingleBlogPage = ({ blog, query }) => {
                                 </div>
                             </section>
                         </div>
-                        <div className='container pb-5'>
+                        <div className='container'>
                             <h4 className='text-center pt-5 pb-5 h2'>Related Blogs</h4>
                             <hr/>
-                            <p>...</p>
-                        </div>
+                            <div className='row'>
+                                {showRelatedBlogs()}
+                            </div>
+                        </div> 
                         <div className='container pb-5'>
                             <p>Comments...</p>
                         </div>

@@ -29,9 +29,6 @@ export const getAllBlogsWithCategoriesAndTags = async (limit, skip) => {
                 limit, skip
             }
         });
-
-        console.log(res.data.blogs);
-        
         return res;
 
     } catch (err) {
@@ -44,6 +41,20 @@ export const getBlog = async slug => {
         const res = await axios({
             url: `${API}/blogs/${slug}`,
             method: 'GET'
+        });
+        return res;
+
+    } catch (err) {
+        return err.response;
+    }
+}
+
+export const getRelatedBlog = async (slug, limit) => {
+    try {
+        const res = await axios({
+            url: `${API}/blogs/related/${slug}`,
+            method: 'GET',
+            params: { limit }
         });
         return res;
 
