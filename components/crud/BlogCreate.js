@@ -9,6 +9,7 @@ import { getCookie, isAuth } from '../../actions/auth';
 import { getCategories } from '../../actions/category';
 import { getTags } from '../../actions/tag';
 import { createBlog } from '../../actions/blog';
+import { QuillModules, QuillFormats } from '../../config';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
@@ -209,8 +210,8 @@ const BlogCreate = ({ router }) => {
                         </div>
                         <div className='form-group'>
                             <ReactQuill
-                                modules={BlogCreate.modules}
-                                formats={BlogCreate.formats}
+                                modules={QuillModules}
+                                formats={QuillFormats}
                                 value={body}
                                 placeholder='Write here...'
                                 onChange={handleEditorChange}
@@ -261,34 +262,5 @@ const BlogCreate = ({ router }) => {
         </div>
     );
 }
-
-BlogCreate.modules = {
-    toolbar: [
-        [{ header: '1' }, { header: '2' }, { header: [3, 4, 5, 6] }, { font: [] }],
-        [{ size: [] }],
-        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-        [{ list: 'ordered' }, { list: 'bullet' }],
-        ['link', 'image', 'video'],
-        ['clean'],
-        ['code-block']
-    ]
-};
-
-BlogCreate.formats = [
-    'header',
-    'font',
-    'size',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'link',
-    'image',
-    'video',
-    'code-block'
-]
 
 export default withRouter(BlogCreate);
