@@ -12,7 +12,7 @@ import { createBlog } from '../../actions/blog';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
-const Blog = ({ router }) => {
+const BlogCreate = ({ router }) => {
 
     const getBlogFromLS = () => {
         if (window) {
@@ -209,8 +209,8 @@ const Blog = ({ router }) => {
                         </div>
                         <div className='form-group'>
                             <ReactQuill
-                                modules={Blog.modules}
-                                formats={Blog.formats}
+                                modules={BlogCreate.modules}
+                                formats={BlogCreate.formats}
                                 value={body}
                                 placeholder='Write here...'
                                 onChange={handleEditorChange}
@@ -262,7 +262,7 @@ const Blog = ({ router }) => {
     );
 }
 
-Blog.modules = {
+BlogCreate.modules = {
     toolbar: [
         [{ header: '1' }, { header: '2' }, { header: [3, 4, 5, 6] }, { font: [] }],
         [{ size: [] }],
@@ -274,7 +274,7 @@ Blog.modules = {
     ]
 };
 
-Blog.formats = [
+BlogCreate.formats = [
     'header',
     'font',
     'size',
@@ -291,4 +291,4 @@ Blog.formats = [
     'code-block'
 ]
 
-export default withRouter(Blog);
+export default withRouter(BlogCreate);
