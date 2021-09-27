@@ -41,12 +41,29 @@ const BlogRead = () => {
         }
     }
 
+    const showUpdateButton = (blog) => {
+        if (isAuth() && isAuth().role === 0) {
+            return (
+                <Link href={`/user/crud/${blog.slug}`}>
+                    <a className='ml-2 btn btn-sm btn-warning'>Update</a>
+                </Link>
+            ) 
+        } else {
+            return (
+                <Link href={`/admin/crud/${blog.slug}`}>
+                    <a className='ml-2 btn btn-sm btn-warning'>Update</a>
+                </Link>
+            )
+        }
+    }
+
     const showBlogs = () => (
         blogs.map(blog => (
             <div key={blog.id}>
                 <h3>{blog.title}</h3>
                 <p>Written By {blog.User.name}</p>
                 <button className='btn btn-sm btn-danger' onClick={() => handleDelete(blog.slug)}>Delete</button>
+                {showUpdateButton(blog)}
                 <hr/>
             </div>
         )) 
