@@ -29,6 +29,13 @@ const Header = (props) => {
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            <Link href={'/blogs'}>
+                                <NavLink>
+                                    Blogs
+                                </NavLink>
+                            </Link>
+                        </NavItem>
                         {!isAuth() && (
                             <>
                                 <NavItem>
@@ -52,7 +59,7 @@ const Header = (props) => {
                                 <NavItem>
                                     <Link href={isAuth().role === 1 ? '/admin' : '/user'}>
                                         <NavLink>
-                                            Dashboard 
+                                            Dashboard
                                         </NavLink>
                                     </Link>
                                 </NavItem>
