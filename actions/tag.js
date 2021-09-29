@@ -56,8 +56,9 @@ export const getTags = async () => {
 
 export const getTag = async slug => {
     try {
-        const res = await axiosGetTags({
-            data: JSON.stringify({ slug })
+        const res = await axios({
+            url: `${API}/tags/${slug}`,
+            method: 'GET'
         });
         return res;
 
