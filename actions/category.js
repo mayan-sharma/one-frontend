@@ -56,8 +56,9 @@ export const getCategories = async () => {
 
 export const getCategory = async slug => {
     try {
-        const res = await axiosGetCategories({
-            data: JSON.stringify({ slug })
+        const res = await axios({
+            url: `${API}/categories/${slug}`,
+            method: 'GET'
         });
         return res;
 
