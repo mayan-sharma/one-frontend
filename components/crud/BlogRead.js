@@ -61,7 +61,7 @@ const BlogRead = () => {
         blogs.map(blog => (
             <div key={blog.id}>
                 <h3>{blog.title}</h3>
-                <p>Written By {blog.User.name}</p>
+                <p>Written By {blog.User.username}</p>
                 <button className='btn btn-sm btn-danger' onClick={() => handleDelete(blog.slug)}>Delete</button>
                 {showUpdateButton(blog)}
                 <hr/>

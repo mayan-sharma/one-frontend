@@ -32,7 +32,7 @@ const Card = ({ blog }) => {
             </header>
             <section>
                 <p className='blockquote-footer ml-1'>
-                    Written By {blog.User.name} | Published
+                    Written By {blog.User.username} | Published
                 </p>
             </section>
             <section>

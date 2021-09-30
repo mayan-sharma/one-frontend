@@ -94,7 +94,7 @@ const SingleBlogPage = ({ blog, query }) => {
                                 <div className='text-center'>
                                     <h1 className='display-4 pb-3 pt-3font-weight-bold '>{blog.title}</h1>
                                     <p className='lead mt-3'>
-                                        Written By {blog.User.name}
+                                        Written By {blog.User.username}
                                     </p>
                                     <div className='pb-3'>
                                         {showCategories()}
