@@ -5,7 +5,6 @@ import {
     Collapse,
     Navbar,
     NavbarToggler,
-    NavbarBrand,
     Nav,
     NavItem,
     NavLink,
@@ -14,14 +13,16 @@ import {
 
 import { isAuth, logoutUser } from '../actions/auth';
 import { APP_NAME } from '../config';
+import Search from './blog/Search';
 
-const Header = (props) => {
+const Header = () => {
+    
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
 
     return (
-        <div>
+        <>
             <Navbar color="light" light expand="md">
                 <Link href='/'>
                     <NavLink className='font-weight-bold'>{APP_NAME}</NavLink>
@@ -73,7 +74,8 @@ const Header = (props) => {
                     </Nav>
                 </Collapse>
             </Navbar>
-        </div>
+            <Search />
+        </>
     );
 }
 

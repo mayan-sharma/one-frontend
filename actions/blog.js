@@ -57,6 +57,19 @@ export const getAllBlogs = async () => {
     }
 }
 
+export const searchBlogs = async (term) => {
+    try {
+        const res = await axios({
+            url: `${API}/blogs/search/${term}`,
+            method: 'GET'
+        });
+        return res;
+
+    } catch (err) {
+        return err.response;
+    }
+}
+
 export const createBlog = async (blog, token) => {
     try {
         const res = await axios({
