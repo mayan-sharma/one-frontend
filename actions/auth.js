@@ -30,6 +30,19 @@ const axiosLogoutUser = axios.create({
     }
 });
 
+export const getPublicProfile = async username => {
+    try {
+        const res = await axios({
+            url: `${API}/auth/${username}`,
+            method: 'GET'
+        });
+        return res;
+
+    } catch (err) {
+        return err.response;
+    }
+}
+
 export const registerUser = async user => {
     try {
         const res = await axiosRegisterUser({
