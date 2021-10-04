@@ -43,6 +43,42 @@ export const getPublicProfile = async username => {
     }
 }
 
+export const getUser = async token => {
+    try {
+        const res = await axios({
+            url: `${API}/auth/`,
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return res;
+
+    } catch (err) {
+        return err.response;
+    }
+}
+
+export const updateUser = async (token, user) => {
+    try {
+        const res = await axios({
+            url: `${API}/auth/update`,
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token}`
+            },
+            data: user
+        });
+        return res;
+
+    } catch (err) {
+        return err.response;
+    }
+}
+
 export const registerUser = async user => {
     try {
         const res = await axiosRegisterUser({
