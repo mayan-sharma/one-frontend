@@ -3,10 +3,10 @@ import Head from 'next/head';
 
 import { getPublicProfile } from '../../actions/auth';
 import Layout from '../../components/Layout';
-import { DOMAIN } from '../../config';
+import { API, DOMAIN } from '../../config';
 
 const ProfileIndexPage = ({ user, blogs, query }) => {
-    
+
     const head = () => (
         user && (
             <Head>
@@ -37,7 +37,7 @@ const ProfileIndexPage = ({ user, blogs, query }) => {
             </div>
         ))
     );
-    
+
     return (
         user && (
             <>
@@ -48,15 +48,27 @@ const ProfileIndexPage = ({ user, blogs, query }) => {
                             <div className='col-md-12'>
                                 <div className='card'>
                                     <div className='card-body'>
-                                        <h5>{user.username}</h5>
-                                        <p className='text-muted'>Total blogs posted - {blogs.length}</p>
+                                        <div className='row'>
+                                            <div className='col-md-8'>
+                                                <h5>{user.username}</h5>
+                                                <p className='text-muted'>Total blogs posted - {blogs.length}</p>
+                                            </div>
+                                            <div className='col-md-4'>
+                                                <img
+                                                    src={`${API}/auth/photo/${user.username}`}
+                                                    className='img img-fluid img-thumbnail mb-3'
+                                                    style={{ maxHeight: '100px', maxWidth: '100%' }}
+                                                    alt='profile photo'
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <br/>
+
+                    <br />
 
                     <div className='container pb-5'>
                         <div className='row'>
