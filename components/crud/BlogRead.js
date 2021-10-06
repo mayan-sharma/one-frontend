@@ -5,7 +5,7 @@ import Router from 'next/router';
 import { getCookie, isAuth } from '../../actions/auth';
 import { getAllBlogs, removeBlog } from '../../actions/blog';
 
-const BlogRead = () => {
+const BlogRead = ({ username }) => {
     
     const [blogs, setBlogs] = useState([]);
     const [message, setMessage] = useState('');
@@ -18,7 +18,7 @@ const BlogRead = () => {
 
     const loadBlogs = async () => {
         try {
-            const res = await getAllBlogs();
+            const res = await getAllBlogs(username);
             if (res.status === 200) {
                 setBlogs(res.data.blogs);
             }

@@ -44,10 +44,17 @@ export const getRelatedBlog = async (slug, limit) => {
     }
 }
 
-export const getAllBlogs = async () => {
+export const getAllBlogs = async (username) => {
     try {
+        let endpoint;
+        if (username) {
+            endpoint = `${API}/blogs/user/${username}`;
+        } else {
+            endpoint = `${API}/blogs`;
+        }
+
         const res = await axios({
-            url: `${API}/blogs`,
+            url: endpoint,
             method: 'GET'
         });
         return res;

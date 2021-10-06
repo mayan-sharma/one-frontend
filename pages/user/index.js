@@ -15,12 +15,12 @@ const UserIndexPage = () => {
                         <div className='col-md-4'>
                             <ul className='list-group'>
                                 <li className='list-group-item'>
-                                    <Link href='/admin/crud/blog'>
+                                    <Link href='/user/crud/blog'>
                                         <a>Create Blog</a>
                                     </Link>
                                 </li>
                                 <li className='list-group-item'>
-                                    <Link href='/admin/crud/blogs'>
+                                    <Link href='/user/crud/blogs'>
                                         <a>Update/Delete Blogs</a>
                                     </Link>
                                 </li>
