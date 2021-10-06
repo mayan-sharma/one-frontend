@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import { isAuth } from '../../backend/controllers/auth';
 import { API } from '../config';
 
 export const getAllBlogsWithCategoriesAndTags = async (limit, skip) => {
@@ -98,8 +99,14 @@ export const createBlog = async (blog, token) => {
 
 export const updateBlog = async (blog, slug, token) => {
     try {
+        let endpoint;
+        if (isAuth() && isAuth().role === 1) {
+            endpoint = `${API}/blogs/${slug}`;
+        } else {
+            endpoint = `${API}/blogs/user/${slug}`;
+        }
         const res = await axios({
-            url: `${API}/blogs/${slug}`,
+            url: endpoint,
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -117,8 +124,14 @@ export const updateBlog = async (blog, slug, token) => {
 
 export const removeBlog = async (slug, token) => {
     try {
+        let endpoint;
+        if (isAuth() && isAuth().role === 1) {
+            endpoint = `${API}/blogs/${slug}`;
+        } else {
+            endpoint = `${API}/blogs/user/${slug}`;
+        }
         const res = await axios({
-            url: `${API}/blogs/${slug}`,
+            url: endpoint,
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
