@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { isAuth } from '../../backend/controllers/auth';
+import { isAuth, handleResponse } from './auth';
 import { API } from '../config';
 
 export const getAllBlogsWithCategoriesAndTags = async (limit, skip) => {
@@ -90,6 +90,7 @@ export const createBlog = async (blog, token) => {
             },
             data: blog
         });
+        handleResponse(res);
         return res;
 
     } catch (err) {

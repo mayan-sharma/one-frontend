@@ -1,5 +1,6 @@
 import axios from 'axios';
 import cookie from 'js-cookie';
+import Router from 'next/router';
 
 import { API } from '../config';
 
@@ -29,6 +30,22 @@ const axiosLogoutUser = axios.create({
         'Content-Type': 'application/json'
     }
 });
+
+export const handleResponse = res => {
+    if (res.status === 401) {
+        logoutUser(() => {
+            Router.push({
+                pathname: '/register',
+                query: {
+                    message: 'Your session is expired!'
+                }
+            });
+        });
+
+    } else {
+        return;
+    }
+}
 
 export const getPublicProfile = async username => {
     try {
