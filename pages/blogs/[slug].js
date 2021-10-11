@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 
 import Layout from '../../components/Layout';
 import MiniCard from '../../components/blog/MiniCard';
+import DisqusThread from '../../components/DisqusThread';
 import { getBlog, getRelatedBlog } from '../../actions/blog';
 import { API, DOMAIN } from '../../config';
 
@@ -73,6 +74,12 @@ const SingleBlogPage = ({ blog, query }) => {
         ))
     )
 
+    const showComments = () => (
+        <div>
+            <DisqusThread id={blog.id} title={blog.title} path={`/blog/${blog.slug}`} />
+        </div>
+    )
+
     return (
         <>
             {head()}
@@ -117,8 +124,8 @@ const SingleBlogPage = ({ blog, query }) => {
                                 {showRelatedBlogs()}
                             </div>
                         </div> 
-                        <div className='container pb-5'>
-                            <p>Comments...</p>
+                        <div className='container pt-5 pb-5'>
+                            {showComments()}
                         </div>
                     </article>
                 </main>
