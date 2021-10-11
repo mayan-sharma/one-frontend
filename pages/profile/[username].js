@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import { getPublicProfile } from '../../actions/auth';
 import Layout from '../../components/Layout';
+import ContactForm from '../../components/form/ContactForm';
 import { API, DOMAIN } from '../../config';
 
 const ProfileIndexPage = ({ user, blogs, query }) => {
@@ -84,7 +85,7 @@ const ProfileIndexPage = ({ user, blogs, query }) => {
                                 <div className='card'>
                                     <div className='card-body'>
                                         <h5 className='card-title bg-primary pt-2 pb-2 pl-2 pr-2 text-light'>Message {user.name}</h5>
-                                        <p>...</p>
+                                        <ContactForm userEmail={user.email} />
                                     </div>
                                 </div>
                             </div>

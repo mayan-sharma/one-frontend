@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { emailContact } from '../../actions/form';
 
-const ContactForm = () => {
+const ContactForm = ({ userEmail }) => {
 
     const [values, setValues] = useState({
         message: '',
@@ -32,7 +32,7 @@ const ContactForm = () => {
                 ...values,
                 loading: true
             });
-            const res = await emailContact({ name, email, message });
+            const res = await emailContact({ name, email, message, userEmail });
             if (res.status === 200) {
                 setValues({
                     ...values,
