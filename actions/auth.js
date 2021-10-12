@@ -136,6 +136,42 @@ export const logoutUser = async (callback) => {
     }
 }
 
+export const forgotPassword = async (email) => {
+    try {
+        const res = await axios({
+            url: `${API}/auth/forgot-password`,
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify({ email })
+        });
+        return res.data;
+
+    } catch (err) {
+        return err.response;
+    }
+}
+
+export const resetPassword = async (password, token) => {
+    try {
+        const res = await axios({
+            url: `${API}/auth/reset-password`,
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify({ password, token })
+        });
+        return res.data;
+
+    } catch (err) {
+        return err.response;
+    }
+}
+
 export const setCookie = (key, value) => {
     // check if this function is running on the client side
     if (process.browser) {
