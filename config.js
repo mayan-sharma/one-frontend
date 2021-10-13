@@ -2,11 +2,13 @@ import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
 
+export const PROD = publicRuntimeConfig.PROD;
 export const API = publicRuntimeConfig.PROD ? publicRuntimeConfig.API_PROD : publicRuntimeConfig.API_DEV;
 export const APP_NAME = publicRuntimeConfig.APP_NAME;
 export const DOMAIN = publicRuntimeConfig.PROD ? String(publicRuntimeConfig.DOMAIN_PROD) : String(publicRuntimeConfig.DOMAIN_DEV); 
 export const DISQUS_NAME = publicRuntimeConfig.DISQUS_NAME;
 export const GOOGLE_CLIENT_ID = publicRuntimeConfig.GOOGLE_CLIENT_ID;
+export const GOOGLE_ANALYTICS_ID = publicRuntimeConfig.GOOGLE_ANALYTICS_ID;
 
 export const QuillModules = {
     toolbar: [
