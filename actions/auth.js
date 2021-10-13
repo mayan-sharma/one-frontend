@@ -96,6 +96,24 @@ export const updateUser = async (token, user) => {
     }
 }
 
+export const preRegisterUser = async user => {
+    try {
+        const res = await axios({
+            url: `${API}/auth/pre-register`,
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(user)
+        });
+        return res;
+
+    } catch (err) {
+        return err.response;
+    }
+}
+
 export const registerUser = async user => {
     try {
         const res = await axiosRegisterUser({

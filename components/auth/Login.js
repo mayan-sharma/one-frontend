@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
+import Link from 'next/link';
 
 import useForm from '../../lib/useForm';
 import { loginUser, storeAuthInfo, isAuth } from '../../actions/auth';
@@ -85,6 +86,11 @@ const Login = () => {
             </div>
             <div className='mt-3 mb-3'>
                 <button disabled={loading} className='btn btn-primary'>Login</button>
+            </div>
+            <div className='mt-3 mb-3'>
+                <Link href={'/auth/password/forgot'}>
+                    <a>Forgot Password</a>
+                </Link>
             </div>
             {showLoading()}
             {showError()}

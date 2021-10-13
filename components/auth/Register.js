@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Router from 'next/router';
 
 import useForm from '../../lib/useForm';
-import { isAuth, registerUser } from '../../actions/auth';
+import { isAuth, registerUser, preRegisterUser } from '../../actions/auth';
 
 const Register = () => {
     
@@ -32,8 +32,8 @@ const Register = () => {
                 name: inputs.name,
                 password: inputs.password
             };
-
-            const res = await registerUser(user);
+            
+            const res = await preRegisterUser(user);
             
             if (res.status) {
                 setMessage(res.data.message);
