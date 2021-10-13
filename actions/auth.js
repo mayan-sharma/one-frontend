@@ -114,10 +114,10 @@ export const preRegisterUser = async user => {
     }
 }
 
-export const registerUser = async user => {
+export const registerUser = async token => {
     try {
         const res = await axiosRegisterUser({
-            data: JSON.stringify(user)
+            data: JSON.stringify({ token })
         });
 
         return res;
