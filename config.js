@@ -6,6 +6,7 @@ export const API = publicRuntimeConfig.PROD ? publicRuntimeConfig.API_PROD : pub
 export const APP_NAME = publicRuntimeConfig.APP_NAME;
 export const DOMAIN = publicRuntimeConfig.PROD ? String(publicRuntimeConfig.DOMAIN_PROD) : String(publicRuntimeConfig.DOMAIN_DEV); 
 export const DISQUS_NAME = publicRuntimeConfig.DISQUS_NAME;
+export const GOOGLE_CLIENT_ID = publicRuntimeConfig.GOOGLE_CLIENT_ID;
 
 export const QuillModules = {
     toolbar: [

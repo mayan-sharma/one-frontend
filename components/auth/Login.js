@@ -3,10 +3,11 @@ import Router from 'next/router';
 import Link from 'next/link';
 
 import useForm from '../../lib/useForm';
+import LoginGoogle from './LoginGoogle';
 import { loginUser, storeAuthInfo, isAuth } from '../../actions/auth';
 
 const Login = () => {
-    
+
     const { inputs, handleChange, clearForm } = useForm({
         email: '',
         password: ''
@@ -23,17 +24,17 @@ const Login = () => {
     const handleSubmit = async e => {
         try {
             e.preventDefault();
-            
+
             setLoading(true);
             setError(null);
-    
+
             const user = {
                 email: inputs.email,
                 password: inputs.password
             };
 
             const res = await loginUser(user);
-        
+
             if (res.status === 200) {
                 setMessage(res.data.message);
                 console.log(isAuth());
@@ -64,8 +65,9 @@ const Login = () => {
 
     return (
         <form onSubmit={handleSubmit}>
+            <LoginGoogle />
             <div className='form-group'>
-                <input 
+                <input
                     type='email'
                     name='email'
                     className='form-control'
@@ -75,7 +77,7 @@ const Login = () => {
                 />
             </div>
             <div className='form-group'>
-                <input 
+                <input
                     type='password'
                     name='password'
                     className='form-control'

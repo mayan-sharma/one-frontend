@@ -140,6 +140,24 @@ export const loginUser = async user => {
     }
 }
 
+export const loginWithGoogle = async tokenId => {
+    try {
+        const res = await axios({
+            url: `${API}/auth/google-login`,
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify({ tokenId })
+        });
+        return res;
+
+    } catch (err) {
+        return err.response;
+    }
+}
+
 export const logoutUser = async (callback) => {
     try {
         removeCookie('token');
